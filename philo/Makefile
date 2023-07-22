@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 05:39:33 by anrodri2          #+#    #+#              #
-#    Updated: 2023/08/09 11:27:06 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/08/16 21:57:25 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,11 @@ INC_DIR = incl/
 #### --- SOURCE FILES --- ####
 
 SRCS = 	main.c \
-		philos.c \
+		thread_init.c \
+		mutex_init.c \
 		errors.c \
+		thread_main.c \
+		philo_utils.c \
 		utils/ft_putstr_fd.c \
 		utils/ft_atoi.c \
 		utils/ft_atol.c \
@@ -42,7 +45,7 @@ CC = cc
 
 RM = rm -rf
 
-CFLAGS = -Wall -Werror -Wextra -g3 -lpthread -fsanitize=thread 
+CFLAGS = -g3 -lpthread -fsanitize=address 
 
 DFLAGS = -MMD -MP
 

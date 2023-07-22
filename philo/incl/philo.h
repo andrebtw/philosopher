@@ -6,10 +6,11 @@
 /*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/09 13:20:51 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:04:54 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* --- Define --- */
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -25,6 +26,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 /* --- Boolean macros --- */
 # define TRUE 1
@@ -65,38 +67,50 @@ at least send 1 philo.\x1B[37m\n"
 # define IS_EATING -2000
 # define IS_SLEEPING -3000
 # define IS_THINKING -4000
-# define IS_DEAD -5000
+# define IS_DEAD -5000 
 # define IS_TAKING_FORK -6000
 
-/* --- Main struct --- */
-typedef struct s_thread
-{
-	int	thread_id;
-}	t_thread ;
+typedef struct timeval t_timeval;
 
+/* --- Main struct --- */
 typedef struct s_philo
 {
-	pthread_t	*threads;
-	t_thread	thread;
-	int			philo_count;
-	int			must_eat;	
+	pthread_t		*threads_array;
+	pthread_mutex_t	*mutex_array;
+	pthread_mutex_t	mutex_printf;
+	int				fork_count;
+	int				philo_count;
+	int				must_eat;
+	int				time_to_eat;
+	int				time_to_die;
+	int				time_to_sleep;
 }	t_philo ;
 
-typedef struct s_single
+typedef struct s_thread
 {
-	pthread_mutex_t	mutex;
-	int				has_fork;
+	pthread_mutex_t	*mutex_left_fork;
+	pthread_mutex_t	*mutex_right_fork;
+	pthread_mutex_t	*mutex_printf;
+	int				*is_left_fork;
+	int				*is_right_fork;
+	int				philo_nb;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_die;
 	int				must_eat;
-}	t_single;
+}	t_thread;
 
 /* --- Errors in parsing --- */
 int		check_for_errors(int argc, char **argv);
-int		threads_init(t_philo *philo, t_single single);
+int		threads_init(t_philo *philo);
 
 /* --- Philo --- */
-void	*func(void *args);
+void	*thread_main(void *args);
+
+/* --- Mutex ---*/
+int		mutex_init(t_philo *philo);
+
+/* --- Philo utils --- */
+void	philo_print_state(int state, int nb, int ms);
 
 #endif
