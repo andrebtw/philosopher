@@ -1,0 +1,5 @@
+arg1: number of philos
+arg2: time to die (between their last meal)
+arg3: time to eat
+arg4: time to sleep
+arg5(optional): times that philos need to eat before the simulation stops.

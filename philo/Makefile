@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 05:39:33 by anrodri2          #+#    #+#              #
-#    Updated: 2023/07/12 15:17:22 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/08/07 08:25:57 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,15 @@ INC_DIR = incl/
 
 #### --- SOURCE FILES --- ####
 
-SRCS = 	main.c\
-		utils/ft_putstr_fd.c\
+SRCS = 	main.c \
+		errors.c \
+		utils/ft_putstr_fd.c \
+		utils/ft_atoi.c \
+		utils/ft_atol.c \
+		utils/ft_isdigit.c \
+		utils/ft_strlen.c \
+		utils/ft_isspace.c \
+		
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
@@ -58,7 +65,6 @@ $(OBJS_DIR)%.o:		$(SRC_DIR)%.c
 					$(CC) $(CFLAGS) $(DFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-			$(MAKE) clean -C
 			$(RM) $(OBJS_DIR) $(DEPS)
 
 fclean:		clean
