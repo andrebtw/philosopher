@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:05 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/08 20:27:52 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/08 20:30:43 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	threads_init(t_philo *philo)
 	{
 		if (pthread_create(&philo->threads[i], NULL, &func, NULL) != 0)
 			return (free(philo->threads), ERR_THREAD_FAILED);
+		pthread_join(philo->threads[i], NULL);
 		i++;
 	}
 	return (EXIT_SUCCESS);
