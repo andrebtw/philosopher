@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/08 20:15:03 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:20:51 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 make sure enough memory is dedicated to the process.\n"
 # define ERR_THREAD_MSG "Thread init has failed. \x1B[0m\n\x1B[33mPlease\
 make sure enough resources are available.\n"
+# define ERR_MUTEX_MSG "Mutex init has failed. \x1B[0m\n\x1B[33mPlease\
+make sure enough resources are available.\n"
 # define ERR_WRONG_ARGS_MSG "⛔\x1B[33m: Wrong number of arguments.\x1B[37m\n"
 # define ERR_NOT_DIGIT "⛔\x1B[33m: Please make sure to \
 only send digits.\x1B[37m\n"
@@ -57,26 +59,44 @@ at least send 1 philo.\x1B[37m\n"
 # define NOT_INIT -15
 # define ERR_MEM_ALLOC_FAILED 12
 # define ERR_THREAD_FAILED 13
+# define ERR_MUTEX_FAILED 14
 
+/* --- Philo states --- */
+# define IS_EATING -2000
+# define IS_SLEEPING -3000
+# define IS_THINKING -4000
+# define IS_DEAD -5000
+# define IS_TAKING_FORK -6000
 
 /* --- Main struct --- */
 typedef struct s_thread
 {
 	int	thread_id;
-} t_thread ;
+}	t_thread ;
 
 typedef struct s_philo
 {
 	pthread_t	*threads;
 	t_thread	thread;
 	int			philo_count;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			time_to_die;
 	int			must_eat;	
-} t_philo ;
+}	t_philo ;
+
+typedef struct s_single
+{
+	pthread_mutex_t	mutex;
+	int				has_fork;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_die;
+	int				must_eat;
+}	t_single;
 
 /* --- Errors in parsing --- */
-int	check_for_errors(int argc, char **argv);
+int		check_for_errors(int argc, char **argv);
+int		threads_init(t_philo *philo, t_single single);
+
+/* --- Philo --- */
+void	*func(void *args);
 
 #endif
