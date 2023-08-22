@@ -78,6 +78,7 @@ typedef struct s_philo
 	pthread_t		*threads_array;
 	pthread_mutex_t	*mutex_array;
 	pthread_mutex_t	mutex_printf;
+	pthread_mutex_t	mutex_wait_for_threads;
 	int				fork_count;
 	int				philo_count;
 	int				must_eat;
@@ -92,6 +93,7 @@ typedef struct s_thread
 	pthread_mutex_t	*mutex_left_fork;
 	pthread_mutex_t	*mutex_right_fork;
 	pthread_mutex_t	*mutex_printf;
+	pthread_mutex_t	*mutex_wait_for_threads;
 	int				philo_nb;
 	int				time_to_eat;
 	int				time_to_sleep;

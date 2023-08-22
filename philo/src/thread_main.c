@@ -18,8 +18,9 @@ void	*thread_main(void *args)
 
 	thread = (t_thread *)args;
 	(void)thread;
-	// pthread_mutex_lock((*single).mutex);
+	pthread_mutex_lock((*thread).mutex_wait_for_threads);
+	pthread_mutex_unlock((*thread).mutex_wait_for_threads);
 	// pthread_mutex_unlock((*single).mutex);
-	// free(thread);
+	printf("PHILO NB: %d\n", thread->philo_nb);
 	pthread_exit(NULL);
 }
