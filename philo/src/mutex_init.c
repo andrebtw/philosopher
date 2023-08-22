@@ -17,12 +17,12 @@ int	mutex_init(t_philo *philo)
 	size_t	i;
 
 	i = 0;
-	philo->mutex_array = (pthread_mutex_t *) (sizeof(pthread_mutex_t) * philo->philo_count + 1);
+	philo->mutex_array = (pthread_mutex_t *) malloc (sizeof(pthread_mutex_t) * (philo->philo_count + 1));
 	if (!philo->mutex_array)
 		return (ERR_MEM_ALLOC_FAILED);
 	while (i < philo->philo_count)
 	{
-		if (pthread_mutex_init(&philo->mutex_array, NULL) != 0)
+		if (pthread_mutex_init(&philo->mutex_array[i], NULL) != 0)
 			return (free(philo->mutex_array), ERR_MUTEX_FAILED);
 		i++;
 	}

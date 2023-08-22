@@ -12,3 +12,31 @@
 
 #include "philo.h"
 
+int	threads_exit(t_philo *philo)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < philo->philo_count)
+	{
+		if (pthread_join(philo->threads_array[i], NULL) != 0)
+			return (EXIT_FAILURE);
+		i++;
+	}
+	free(philo->threads_array);
+	return (EXIT_SUCCESS);
+}
+int	mutex_destroy(t_philo *philo)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < philo->philo_count)
+	{
+		pthread_mutex_destroy(&philo->mutex_array[i]);
+		i++;
+	}
+	free(philo->mutex_array);
+	pthread_mutex_destroy(&philo->mutex_printf);
+	return (EXIT_SUCCESS);
+}

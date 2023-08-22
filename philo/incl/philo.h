@@ -81,6 +81,7 @@ typedef struct s_philo
 	int				fork_count;
 	int				philo_count;
 	int				must_eat;
+	int				eat_count_max;
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
@@ -91,24 +92,26 @@ typedef struct s_thread
 	pthread_mutex_t	*mutex_left_fork;
 	pthread_mutex_t	*mutex_right_fork;
 	pthread_mutex_t	*mutex_printf;
-	int				*is_left_fork;
-	int				*is_right_fork;
 	int				philo_nb;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_die;
-	int				must_eat;
+	int				eat_count;
+	int				eat_count_max;
+	int				is_even;
 }	t_thread;
 
 /* --- Errors in parsing --- */
 int		check_for_errors(int argc, char **argv);
-int		threads_init(t_philo *philo);
 
 /* --- Philo --- */
 void	*thread_main(void *args);
+int		threads_exit(t_philo *philo);
+int		threads_init(t_philo *philo);
 
 /* --- Mutex ---*/
 int		mutex_init(t_philo *philo);
+int		mutex_destroy(t_philo *philo);
 
 /* --- Philo utils --- */
 void	philo_print_state(int state, int nb, int ms);

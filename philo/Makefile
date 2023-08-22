@@ -24,6 +24,7 @@ INC_DIR = incl/
 
 SRCS = 	main.c \
 		thread_init.c \
+		thread_exit.c \
 		mutex_init.c \
 		errors.c \
 		thread_main.c \
@@ -45,7 +46,7 @@ CC = cc
 
 RM = rm -rf
 
-CFLAGS = -g3 -lpthread -fsanitize=address 
+CFLAGS = -g3 -lpthread -fsanitize=thread 
 
 DFLAGS = -MMD -MP
 

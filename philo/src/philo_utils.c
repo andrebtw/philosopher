@@ -15,13 +15,13 @@
 void	philo_print_state(int state, int nb, int ms)
 {
 	if (state == IS_DEAD)
-		printf("%d %d died.\n", ms, nb);
+		printf("%d %d died\n", ms, nb);
 	else if (state == IS_EATING)
-		printf("%d %d is eating.\n", ms, nb);
+		printf("%d %d is eating\n", ms, nb);
 	else if (state == IS_SLEEPING)
-		printf("%d %d is sleeping.\n", ms, nb);
+		printf("%d %d is sleeping\n", ms, nb);
 	else if (state == IS_TAKING_FORK)
-		printf("%d %d has taken a fork.\n", ms, nb);
+		printf("%d %d has taken a fork\n", ms, nb);
 	else if (state == IS_THINKING)
-		printf("%d %d is thinking.\n", ms, nb);
+		printf("%d %d is thinking\n", ms, nb);
 }

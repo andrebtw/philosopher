@@ -12,6 +12,25 @@
 
 #include "philo.h"
 
+void	value_init(t_philo *philo, t_thread *thread, size_t i)
+{
+	thread->philo_nb = i;
+	thread->time_to_eat = philo->time_to_eat;
+	thread->time_to_sleep = philo->time_to_sleep;
+	thread->time_to_die = philo->time_to_die;
+	thread->eat_count = 0;
+	thread->eat_count_max = philo->must_eat;
+	thread->is_even = i % 2;
+	if (i != 0)
+		thread->mutex_left_fork = &philo->mutex_array[i - 1];
+	thread->mutex_right_fork = &philo->mutex_array[i];
+	if (i == 0)
+		thread->mutex_left_fork = &philo->mutex_array[philo->philo_count];
+	if (i + 1 == philo->philo_count)
+		thread->mutex_right_fork = &philo->mutex_array[0];
+	thread->mutex_printf = thread->mutex_printf;
+}
+
 int	threads_init(t_philo *philo)
 {
 	int			i;
@@ -25,18 +44,19 @@ int	threads_init(t_philo *philo)
 	philo->threads_array = malloc(sizeof(pthread_t) * philo->philo_count);
 	if (!philo->threads_array)
 		return (free(philo->mutex_array), ERR_MEM_ALLOC_FAILED);
+	thread = malloc (sizeof(t_thread) * philo->philo_count);
+	if (!thread)
+		return (free(philo->mutex_array), free(philo->threads_array), ERR_MEM_ALLOC_FAILED);
 	while (i < philo->philo_count)
 	{
-		if (pthread_create(&philo->threads_array[i], NULL, &thread_main, (void *)thread) != 0)
+		value_init(philo, thread, i);
+		if (pthread_create(&philo->threads_array[i], NULL, &thread_main, &thread[i]) != 0)
 			return (free(philo->threads_array), ERR_THREAD_FAILED);
 		i++;
 	}
-	i = 0;
-	while (i < philo->philo_count)
-	{
-		pthread_join(philo->threads_array[i], NULL);
-		i++;
-	}
-	free(philo->threads_array);
-	return (EXIT_SUCCESS);
+	ret_value = threads_exit(philo);
+	if (ret_value != 0)
+		return (ret_value);
+	ret_value = mutex_destroy(philo);
+	return (ret_value);
 }
