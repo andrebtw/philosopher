@@ -12,6 +12,20 @@
 
 #include "philo.h"
 
+void	eat_first(t_thread *thread)
+{
+	
+	philo_print_state(IS_EATING, thread->philo_nb, ms_since_start(thread->time_saved_ms));
+}
+
+void save_time_start_ms(t_thread *thread)
+{
+	struct timeval	real_time;
+
+	gettimeofday(&real_time, NULL);
+	thread->time_saved_ms = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
+}
+
 void	*thread_main(void *args)
 {
 	t_thread	*thread;
@@ -19,6 +33,10 @@ void	*thread_main(void *args)
 	thread = (t_thread *)args;
 	pthread_mutex_lock((*thread).mutex_wait_for_threads);
 	pthread_mutex_unlock((*thread).mutex_wait_for_threads);
-	ft_usleep(1000 * 10000);
+	save_time_start_ms(thread);
+	if (thread->is_even)
+	{
+		eat_first(thread);
+	}
 	pthread_exit(NULL);
 }

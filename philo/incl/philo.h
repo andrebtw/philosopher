@@ -101,6 +101,7 @@ typedef struct s_thread
 	int				eat_count;
 	int				eat_count_max;
 	int				is_even;
+	time_t			time_saved_ms;
 }	t_thread;
 
 /* --- Errors in parsing --- */
@@ -116,7 +117,8 @@ int		mutex_init(t_philo *philo);
 int		mutex_destroy(t_philo *philo);
 
 /* --- Philo utils --- */
-void	philo_print_state(int state, int nb, int ms);
+void	philo_print_state(int state, int nb, time_t ms);
 void	ft_usleep(time_t useconds);
+time_t	ms_since_start(time_t time_saved_ms);
 
 #endif

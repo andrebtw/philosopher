@@ -12,18 +12,18 @@
 
 #include "philo.h"
 
-void	philo_print_state(int state, int nb, int ms)
+void	philo_print_state(int state, int nb, time_t ms)
 {
 	if (state == IS_DEAD)
-		printf("%d %d died\n", ms, nb);
+		printf("%ld %d died\n", ms, nb);
 	else if (state == IS_EATING)
-		printf("%d %d is eating\n", ms, nb);
+		printf("%ld %d is eating\n", ms, nb);
 	else if (state == IS_SLEEPING)
-		printf("%d %d is sleeping\n", ms, nb);
+		printf("%ld %d is sleeping\n", ms, nb);
 	else if (state == IS_TAKING_FORK)
-		printf("%d %d has taken a fork\n", ms, nb);
+		printf("%ld %d has taken a fork\n", ms, nb);
 	else if (state == IS_THINKING)
-		printf("%d %d is thinking\n", ms, nb);
+		printf("%ld %d is thinking\n", ms, nb);
 }
 
 void	ft_usleep(time_t useconds)
@@ -41,4 +41,14 @@ void	ft_usleep(time_t useconds)
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 		usleep(10);
 	}
+}
+
+time_t	ms_since_start(time_t time_saved_ms)
+{
+	struct timeval	real_time;
+	time_t			ms;
+
+	gettimeofday(&real_time, NULL);
+	ms = (real_time.tv_sec * 1000 + real_time.tv_usec / 1000) - time_saved_ms;
+	return (ms);
 }
