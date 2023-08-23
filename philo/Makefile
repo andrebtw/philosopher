@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 05:39:33 by anrodri2          #+#    #+#              #
-#    Updated: 2023/08/16 21:57:25 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/08/24 00:31:53 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INC_DIR = incl/
 SRCS = 	main.c \
 		thread_init.c \
 		thread_exit.c \
+		philo_actions.c \
 		mutex_init.c \
 		errors.c \
 		thread_main.c \
@@ -46,7 +47,7 @@ CC = cc
 
 RM = rm -rf
 
-CFLAGS = -g3 -lpthread -fsanitize=thread 
+CFLAGS = -g3 -lpthread 
 
 DFLAGS = -MMD -MP
 

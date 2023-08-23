@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:05 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/11 13:48:01 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:21:14 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init(t_philo *philo, char **argv)
 	philo->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		philo->must_eat = ft_atoi(argv[5]);
+	else
+		philo->must_eat = NOT_INIT;
 }
 
 int	main(int argc, char **argv)

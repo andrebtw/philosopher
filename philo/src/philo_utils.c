@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 20:45:56 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/13 20:46:05 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:14:49 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_print_state(int state, int nb, time_t ms)
+void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 {
+	pthread_mutex_lock((*thread).mutex_printf);
 	if (state == IS_DEAD)
 		printf("%ld %d died\n", ms, nb);
 	else if (state == IS_EATING)
@@ -24,6 +25,7 @@ void	philo_print_state(int state, int nb, time_t ms)
 		printf("%ld %d has taken a fork\n", ms, nb);
 	else if (state == IS_THINKING)
 		printf("%ld %d is thinking\n", ms, nb);
+	pthread_mutex_unlock((*thread).mutex_printf);
 }
 
 void	ft_usleep(time_t useconds)
