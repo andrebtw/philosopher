@@ -117,5 +117,6 @@ int		mutex_destroy(t_philo *philo);
 
 /* --- Philo utils --- */
 void	philo_print_state(int state, int nb, int ms);
+void	ft_usleep(time_t useconds);
 
 #endif

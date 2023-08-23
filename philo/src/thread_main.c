@@ -17,10 +17,8 @@ void	*thread_main(void *args)
 	t_thread	*thread;
 
 	thread = (t_thread *)args;
-	(void)thread;
 	pthread_mutex_lock((*thread).mutex_wait_for_threads);
 	pthread_mutex_unlock((*thread).mutex_wait_for_threads);
-	// pthread_mutex_unlock((*single).mutex);
-	printf("PHILO NB: %d\n", thread->philo_nb);
+	ft_usleep(1000 * 10000);
 	pthread_exit(NULL);
 }
