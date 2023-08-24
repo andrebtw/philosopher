@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/24 00:31:14 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:07:05 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		mutex_destroy(t_philo *philo);
 /* --- Philo actions --- */
 void	thinking(t_thread *thread);
 void	eating(t_thread *thread);
-void	sleep_philo(t_thread *thread);
+void	sleeping(t_thread *thread);
 
 /* --- Philo utils --- */
 void	philo_print_state(int state, int nb, time_t ms, t_thread *thread);

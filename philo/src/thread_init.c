@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 11:25:50 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/16 21:53:09 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:31:03 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->eat_count = 0;
 	thread->eat_count_max = philo->must_eat;
 	thread->is_even = !(i % 2);
-	if (i != 0)
-		thread->mutex_left_fork = &philo->mutex_array[i - 1];
 	thread->mutex_right_fork = &philo->mutex_array[i];
 	if (i == 0)
-		thread->mutex_left_fork = &philo->mutex_array[philo->philo_count];
-	if (i + 1 == philo->philo_count)
-		thread->mutex_right_fork = &philo->mutex_array[0];
+		i = philo->philo_count;
+	thread->mutex_left_fork = &philo->mutex_array[i - 1];
 	thread->mutex_printf = &philo->mutex_printf;
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
 }
