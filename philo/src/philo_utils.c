@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 20:45:56 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/24 00:14:49 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:40:42 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_usleep(time_t useconds)
 	gettimeofday(&real_time, NULL);
 	time_save = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
-	while (time_save + useconds / 1000 >= time_update)
+	while (time_save + useconds / 1000 > time_update)
 	{
 		gettimeofday(&real_time, NULL);
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;

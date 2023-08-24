@@ -6,7 +6,7 @@
 #    By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 05:39:33 by anrodri2          #+#    #+#              #
-#    Updated: 2023/08/24 00:31:53 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/08/24 18:37:25 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,9 @@ DEPS = $(OBJS:.o=.d)
 #### --- SYSTEM --- ####
 CC = cc
 
+CFLAGS = -g3 -pthread
 RM = rm -rf
 
-CFLAGS = -g3 -lpthread 
 
 DFLAGS = -MMD -MP
 
