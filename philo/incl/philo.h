@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/24 18:40:13 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:20:41 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_thread
 	int				eat_count;
 	int				is_even;
 	time_t			time_saved_ms;
+	time_t			last_time_eat;
 }	t_thread;
 
 /* --- Errors in parsing --- */
@@ -126,4 +127,5 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread);
 void	ft_usleep(time_t useconds);
 time_t	ms_since_start(time_t time_saved_ms);
 
+time_t	gettime(void);
 #endif

@@ -6,11 +6,21 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:46:13 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/24 18:20:37 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:27:01 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+time_t	gettime(void)
+{
+	time_t			now_time;
+	struct timeval	real_time;
+
+	gettimeofday(&real_time, NULL);
+	now_time = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
+	return (now_time);
+}
 
 void	save_time_start_ms(t_thread *thread)
 {
@@ -22,13 +32,16 @@ void	save_time_start_ms(t_thread *thread)
 
 void	thread_loop(t_thread *thread)
 {
-	thread->eat_count = 0;
+	// thread->eat_count = -2;
 	while (1)
 	{
+		// if (thread->eat_count_max == NOT_INIT)
+		// 	thread->eat_count = 0;
+		// else
+		// 	thread->eat_count++;
 		eating(thread);
 		sleeping(thread);
 		thinking(thread);
-		thread->eat_count++;
 	}
 }
 
