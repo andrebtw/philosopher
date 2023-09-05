@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 20:45:56 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/05 14:35:14 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:22:27 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 	}
 	else if (state == IS_EATING)
 	{
-		pthread_mutex_unlock((*thread).mutex_printf);
 		printf("%ld %d is eating\n", ms, nb);
+		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_SLEEPING)
 	{
-		pthread_mutex_unlock((*thread).mutex_printf);
 		printf("%ld %d is sleeping\n", ms, nb);
+		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_TAKING_FORK)
 	{
-		pthread_mutex_unlock((*thread).mutex_printf);
 		printf("%ld %d has taken a fork\n", ms, nb);
+		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_THINKING)
 	{
-		pthread_mutex_unlock((*thread).mutex_printf);
 		printf("%ld %d is thinking\n", ms, nb);
+		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 }
 

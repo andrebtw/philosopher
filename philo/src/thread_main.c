@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:46:13 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/05 14:30:26 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:39:23 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ void	start_philo(t_thread *thread)
 {
 	if (thread->is_even)
 	{
+		check_philo_dead(thread);
 		thinking(thread);
 		usleep(1000 * 5);
+		check_philo_dead(thread);
 	}
 }
 
