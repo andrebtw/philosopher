@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:46:13 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/29 17:27:01 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:30:26 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ void	thread_loop(t_thread *thread)
 		// 	thread->eat_count = 0;
 		// else
 		// 	thread->eat_count++;
+		check_philo_dead(thread);
 		eating(thread);
+		check_philo_dead(thread);
 		sleeping(thread);
+		check_philo_dead(thread);
 		thinking(thread);
+		check_philo_dead(thread);
 	}
 }
 
@@ -62,6 +66,7 @@ void	*thread_main(void *args)
 	pthread_mutex_lock((*thread).mutex_wait_for_threads);
 	pthread_mutex_unlock((*thread).mutex_wait_for_threads);
 	thread->philo_nb++;
+	thread->last_time_eat = gettime();
 	save_time_start_ms(thread);
 	start_philo(thread);
 	thread_loop(thread);
