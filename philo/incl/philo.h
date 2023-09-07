@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/05 14:35:22 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:38:08 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,5 @@ void	ft_usleep(time_t useconds, t_thread *thread);
 time_t	ms_since_start(time_t time_saved_ms);
 void	check_philo_dead(t_thread *thread);
 time_t	gettime(void);
-
+void	check_philo_dead1(t_thread *thread);
 #endif

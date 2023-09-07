@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:46:13 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/05 15:39:23 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:10:31 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	thread_loop(t_thread *thread)
 		sleeping(thread);
 		check_philo_dead(thread);
 		thinking(thread);
-		check_philo_dead(thread);
 	}
 }
 
