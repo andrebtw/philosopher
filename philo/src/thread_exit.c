@@ -17,7 +17,7 @@ int	threads_exit(t_philo *philo)
 	size_t	i;
 
 	i = 0;
-	while (i < philo->philo_count)
+	while (i < (size_t)philo->philo_count)
 	{
 		if (pthread_join(philo->threads_array[i], NULL) != 0)
 			return (EXIT_FAILURE);
@@ -31,7 +31,7 @@ int	mutex_destroy(t_philo *philo)
 	size_t	i;
 
 	i = 0;
-	while (i < philo->philo_count)
+	while (i < (size_t)philo->philo_count)
 	{
 		pthread_mutex_destroy(&philo->mutex_array[i]);
 		i++;

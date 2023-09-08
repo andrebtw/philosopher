@@ -47,6 +47,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 	time_t			time_save;
 	time_t			time_update;
 
+	(void)thread;
 	gettimeofday(&real_time, NULL);
 	time_save = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;

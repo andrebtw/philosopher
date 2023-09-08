@@ -45,7 +45,7 @@ DEPS = $(OBJS:.o=.d)
 #### --- SYSTEM --- ####
 CC = cc
 
-CFLAGS = -g3 -pthread
+CFLAGS = -Wall -Wextra -Werror -g3 -pthread -fsanitize=thread
 RM = rm -rf
 
 
