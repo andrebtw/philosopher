@@ -30,17 +30,17 @@ void	save_time_start_ms(t_thread *thread)
 	thread->time_saved_ms = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 }
 
+
+
 void	thread_loop(t_thread *thread)
 {
-	// thread->eat_count = -2;
 	while (1)
 	{
-		// if (thread->eat_count_max == NOT_INIT)
-		// 	thread->eat_count = 0;
-		// else
-		// 	thread->eat_count++;
 		check_philo_dead(thread);
+		// if (!(thread->eat_count < thread->eat_count_max))
+			// break ;
 		eating(thread);
+		// thread->eat_count++;
 		check_philo_dead(thread);
 		sleeping(thread);
 		check_philo_dead(thread);
@@ -67,9 +67,11 @@ void	*thread_main(void *args)
 	pthread_mutex_lock((*thread).mutex_wait_for_threads);
 	pthread_mutex_unlock((*thread).mutex_wait_for_threads);
 	thread->philo_nb++;
+	thread->eat_count = 0;
+	if (thread->eat_count_max == NOT_INIT)
+		thread->eat_count_max = INT_MAX;
 	thread->last_time_eat = gettime();
 	save_time_start_ms(thread);
-	start_philo(thread);
 	thread_loop(thread);
 	pthread_exit(NULL);
 }

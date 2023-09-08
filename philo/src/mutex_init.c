@@ -30,5 +30,7 @@ int	mutex_init(t_philo *philo)
 		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
 	if (pthread_mutex_init(&philo->mutex_wait_for_threads, NULL) != 0)
 		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
+	if (pthread_mutex_init(&philo->mutex_can_print, NULL) != 0)
+		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
 	return (EXIT_SUCCESS);
 }

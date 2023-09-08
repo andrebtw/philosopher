@@ -79,6 +79,7 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex_array;
 	pthread_mutex_t	mutex_printf;
 	pthread_mutex_t	mutex_wait_for_threads;
+	pthread_mutex_t	mutex_can_print;
 	int				fork_count;
 	int				philo_count;
 	int				must_eat;
@@ -94,6 +95,7 @@ typedef struct s_thread
 	pthread_mutex_t	*mutex_right_fork;
 	pthread_mutex_t	*mutex_printf;
 	pthread_mutex_t	*mutex_wait_for_threads;
+	pthread_mutex_t	*mutex_can_print;
 	int				philo_nb;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -128,5 +130,7 @@ void	ft_usleep(time_t useconds, t_thread *thread);
 time_t	ms_since_start(time_t time_saved_ms);
 void	check_philo_dead(t_thread *thread);
 time_t	gettime(void);
-void	check_philo_dead1(t_thread *thread);
+time_t	ms_since_start_saved(time_t time_saved_ms, time_t timestamp);
+void	check_philo_dead_before_fork(t_thread *thread, time_t timestamp);
+
 #endif

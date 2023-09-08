@@ -26,6 +26,7 @@ int	threads_exit(t_philo *philo)
 	free(philo->threads_array);
 	return (EXIT_SUCCESS);
 }
+
 int	mutex_destroy(t_philo *philo)
 {
 	size_t	i;

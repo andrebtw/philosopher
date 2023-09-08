@@ -53,6 +53,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	while (time_save + useconds / 1000 > time_update)
 	{
+		check_philo_dead(thread);
 		gettimeofday(&real_time, NULL);
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 		usleep(10);
@@ -66,5 +67,13 @@ time_t	ms_since_start(time_t time_saved_ms)
 
 	gettimeofday(&real_time, NULL);
 	ms = (real_time.tv_sec * 1000 + real_time.tv_usec / 1000) - time_saved_ms;
+	return (ms);
+}
+
+time_t	ms_since_start_saved(time_t time_saved_ms, time_t timestamp)
+{
+	time_t			ms;
+
+	ms = timestamp - time_saved_ms;
 	return (ms);
 }

@@ -27,6 +27,7 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->mutex_left_fork = &philo->mutex_array[i - 1];
 	thread->mutex_printf = &philo->mutex_printf;
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
+	thread->mutex_can_print = &philo->mutex_can_print;
 }
 
 int	threads_init(t_philo *philo)
