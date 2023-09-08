@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:46:13 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/07 18:10:31 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/08 19:25:41 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,15 @@ void	save_time_start_ms(t_thread *thread)
 	thread->time_saved_ms = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 }
 
-
-
 void	thread_loop(t_thread *thread)
 {
 	while (1)
 	{
-		check_philo_dead(thread);
 		// if (!(thread->eat_count < thread->eat_count_max))
 			// break ;
 		eating(thread);
 		// thread->eat_count++;
-		check_philo_dead(thread);
 		sleeping(thread);
-		check_philo_dead(thread);
 		thinking(thread);
 	}
 }
@@ -52,10 +47,8 @@ void	start_philo(t_thread *thread)
 {
 	if (thread->is_even)
 	{
-		check_philo_dead(thread);
 		thinking(thread);
 		usleep(1000 * 5);
-		check_philo_dead(thread);
 	}
 }
 
@@ -70,7 +63,9 @@ void	*thread_main(void *args)
 	thread->eat_count = 0;
 	if (thread->eat_count_max == NOT_INIT)
 		thread->eat_count_max = INT_MAX;
+	pthread_mutex_lock((*thread).mutex_stop);
 	thread->last_time_eat = gettime();
+	pthread_mutex_unlock((*thread).mutex_stop);
 	save_time_start_ms(thread);
 	thread_loop(thread);
 	pthread_exit(NULL);

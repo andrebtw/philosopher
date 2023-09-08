@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 11:25:50 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/24 18:35:19 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/08 19:27:54 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->eat_count = 0;
 	thread->eat_count_max = philo->must_eat;
 	thread->is_even = !(i % 2);
+	thread->last_time_eat = NOT_INIT;
 	thread->mutex_right_fork = &philo->mutex_array[i];
 	if (i == 0)
 		i = philo->philo_count;
 	thread->mutex_left_fork = &philo->mutex_array[i - 1];
 	thread->mutex_printf = &philo->mutex_printf;
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
-	thread->mutex_can_print = &philo->mutex_can_print;
+	thread->mutex_stop = &philo->mutex_stop;
 }
 
 int	threads_init(t_philo *philo)
@@ -55,6 +56,23 @@ int	threads_init(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_unlock(&philo->mutex_wait_for_threads);
+	while (1)
+	{
+		size_t i;
+	
+		i = 0;
+		while (i < (size_t)philo->philo_count)
+		{
+			pthread_mutex_lock(&philo->mutex_stop);
+			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
+			{
+				// philo_print_state(IS_DEAD, philo->philo_count, ms_since_start(thread[i].time_saved_ms), &thread[i]);
+			}
+			pthread_mutex_unlock(&philo->mutex_stop);
+			usleep(300);
+			i++;
+		}
+	}
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)
 		return (ret_value);

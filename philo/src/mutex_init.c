@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 20:28:36 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/08/16 22:09:37 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:45:50 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	mutex_init(t_philo *philo)
 		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
 	if (pthread_mutex_init(&philo->mutex_wait_for_threads, NULL) != 0)
 		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
-	if (pthread_mutex_init(&philo->mutex_can_print, NULL) != 0)
+	if (pthread_mutex_init(&philo->mutex_stop, NULL) != 0)
 		return (free(philo->mutex_array), ERR_MUTEX_FAILED);
 	return (EXIT_SUCCESS);
 }

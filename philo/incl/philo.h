@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 05:34:39 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/09/06 18:38:08 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:45:46 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex_array;
 	pthread_mutex_t	mutex_printf;
 	pthread_mutex_t	mutex_wait_for_threads;
-	pthread_mutex_t	mutex_can_print;
+	pthread_mutex_t	mutex_stop;
 	int				fork_count;
 	int				philo_count;
 	int				must_eat;
@@ -95,7 +95,7 @@ typedef struct s_thread
 	pthread_mutex_t	*mutex_right_fork;
 	pthread_mutex_t	*mutex_printf;
 	pthread_mutex_t	*mutex_wait_for_threads;
-	pthread_mutex_t	*mutex_can_print;
+	pthread_mutex_t	*mutex_stop;
 	int				philo_nb;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -128,9 +128,6 @@ void	sleeping(t_thread *thread);
 void	philo_print_state(int state, int nb, time_t ms, t_thread *thread);
 void	ft_usleep(time_t useconds, t_thread *thread);
 time_t	ms_since_start(time_t time_saved_ms);
-void	check_philo_dead(t_thread *thread);
 time_t	gettime(void);
-time_t	ms_since_start_saved(time_t time_saved_ms, time_t timestamp);
-void	check_philo_dead_before_fork(t_thread *thread, time_t timestamp);
 
 #endif
