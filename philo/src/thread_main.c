@@ -27,18 +27,23 @@ void	save_time_start_ms(t_thread *thread)
 	struct timeval	real_time;
 
 	gettimeofday(&real_time, NULL);
+	pthread_mutex_lock((*thread).mutex_stop);
 	thread->time_saved_ms = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
+	pthread_mutex_unlock((*thread).mutex_stop);
 }
 
 void	thread_loop(t_thread *thread)
 {
 	while (1)
 	{
+		check_death(thread);
 		// if (!(thread->eat_count < thread->eat_count_max))
 			// break ;
 		eating(thread);
+		check_death(thread);
 		// thread->eat_count++;
 		sleeping(thread);
+		check_death(thread);
 		thinking(thread);
 	}
 }

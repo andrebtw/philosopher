@@ -29,6 +29,7 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->mutex_printf = &philo->mutex_printf;
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
 	thread->mutex_stop = &philo->mutex_stop;
+	thread->is_dead = &philo->is_dead;
 }
 
 int	threads_init(t_philo *philo)
@@ -56,20 +57,25 @@ int	threads_init(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_unlock(&philo->mutex_wait_for_threads);
-	while (1)
+	while (philo->is_dead == FALSE)
 	{
 		size_t i;
 	
 		i = 0;
-		while (i < (size_t)philo->philo_count)
+		while (i < (size_t)philo->philo_count && philo->is_dead == FALSE)
 		{
 			pthread_mutex_lock(&philo->mutex_stop);
 			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
 			{
-				// philo_print_state(IS_DEAD, philo->philo_count, ms_since_start(thread[i].time_saved_ms), &thread[i]);
+				philo->is_dead = TRUE;
+				pthread_mutex_unlock(&philo->mutex_stop);
+				philo_print_state(IS_DEAD, philo->philo_count, ms_since_start(thread[i].time_saved_ms), &thread[i]);
 			}
-			pthread_mutex_unlock(&philo->mutex_stop);
-			usleep(300);
+			else
+			{
+				pthread_mutex_unlock(&philo->mutex_stop);
+			}
+			usleep(500);
 			i++;
 		}
 	}

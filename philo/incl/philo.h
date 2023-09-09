@@ -87,6 +87,7 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
+	int				is_dead;
 }	t_philo ;
 
 typedef struct s_thread
@@ -105,6 +106,7 @@ typedef struct s_thread
 	int				is_even;
 	time_t			time_saved_ms;
 	time_t			last_time_eat;
+	int				*is_dead;
 }	t_thread;
 
 /* --- Errors in parsing --- */
@@ -129,5 +131,6 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread);
 void	ft_usleep(time_t useconds, t_thread *thread);
 time_t	ms_since_start(time_t time_saved_ms);
 time_t	gettime(void);
+void	check_death(t_thread *thread);
 
 #endif

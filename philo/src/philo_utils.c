@@ -18,6 +18,7 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 	if (state == IS_DEAD)
 	{
 		printf("%ld %d died\n", ms, nb);
+		// pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_EATING)
 	{
@@ -46,13 +47,21 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 	struct timeval	real_time;
 	time_t			time_save;
 	time_t			time_update;
+	size_t			counter;
 
+	counter = 0;
 	(void)thread;
 	gettimeofday(&real_time, NULL);
 	time_save = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	while (time_save + useconds / 1000 > time_update)
 	{
+		if (counter == 110)
+		{
+			check_death(thread);
+			counter = 0;
+		}
+		counter++;
 		gettimeofday(&real_time, NULL);
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 		usleep(10);
@@ -67,4 +76,15 @@ time_t	ms_since_start(time_t time_saved_ms)
 	gettimeofday(&real_time, NULL);
 	ms = (real_time.tv_sec * 1000 + real_time.tv_usec / 1000) - time_saved_ms;
 	return (ms);
+}
+
+void	check_death(t_thread *thread)
+{
+	pthread_mutex_lock((*thread).mutex_stop);
+	if (*thread->is_dead)
+	{
+		pthread_mutex_unlock((*thread).mutex_stop);
+		pthread_exit(NULL);
+	}
+	pthread_mutex_unlock((*thread).mutex_stop);
 }

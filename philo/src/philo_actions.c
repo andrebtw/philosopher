@@ -22,6 +22,7 @@ void	odd_order_eating(t_thread *thread)
 	if (thread->philo_nb % 2 == 0)
 	{
 		pthread_mutex_lock((*thread).mutex_left_fork);
+		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
 		pthread_mutex_lock((*thread).mutex_right_fork);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
@@ -29,6 +30,7 @@ void	odd_order_eating(t_thread *thread)
 	else
 	{
 		pthread_mutex_lock((*thread).mutex_right_fork);
+		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
 		pthread_mutex_lock((*thread).mutex_left_fork);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);

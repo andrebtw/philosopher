@@ -22,6 +22,7 @@ void	init(t_philo *philo, char **argv)
 		philo->must_eat = ft_atoi(argv[5]);
 	else
 		philo->must_eat = NOT_INIT;
+	philo->is_dead = FALSE;
 }
 
 int	main(int argc, char **argv)
