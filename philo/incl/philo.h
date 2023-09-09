@@ -104,6 +104,8 @@ typedef struct s_thread
 	int				eat_count_max;
 	int				eat_count;
 	int				is_even;
+	int				right_fork_taken;
+	int				left_fork_taken;
 	time_t			time_saved_ms;
 	time_t			last_time_eat;
 	int				*is_dead;

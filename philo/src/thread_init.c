@@ -30,6 +30,8 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
 	thread->mutex_stop = &philo->mutex_stop;
 	thread->is_dead = &philo->is_dead;
+	thread->right_fork_taken = FALSE;
+	thread->left_fork_taken = FALSE;
 }
 
 int	threads_init(t_philo *philo)
@@ -68,6 +70,12 @@ int	threads_init(t_philo *philo)
 			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
 			{
 				philo->is_dead = TRUE;
+				if (thread[i].right_fork_taken == TRUE)
+					pthread_mutex_unlock(thread[i].mutex_right_fork);
+				if (thread[i].left_fork_taken == TRUE)
+				{
+					pthread_mutex_unlock(thread[i].mutex_left_fork);
+				}
 				pthread_mutex_unlock(&philo->mutex_stop);
 				philo_print_state(IS_DEAD, philo->philo_count, ms_since_start(thread[i].time_saved_ms), &thread[i]);
 			}
