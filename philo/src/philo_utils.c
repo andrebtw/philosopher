@@ -18,7 +18,6 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 	if (state == IS_DEAD)
 	{
 		printf("%ld %d died\n", ms, nb);
-		// pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_EATING)
 	{
@@ -83,6 +82,10 @@ void	check_death(t_thread *thread)
 	pthread_mutex_lock((*thread).mutex_stop);
 	if (*thread->is_dead)
 	{
+		if (thread->right_fork_taken)
+			pthread_mutex_unlock((*thread).mutex_right_fork);
+		if (thread->left_fork_taken)
+			pthread_mutex_unlock((*thread).mutex_left_fork);
 		pthread_mutex_unlock((*thread).mutex_stop);
 		pthread_exit(NULL);
 	}

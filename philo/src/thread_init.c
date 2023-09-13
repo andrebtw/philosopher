@@ -70,14 +70,8 @@ int	threads_init(t_philo *philo)
 			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
 			{
 				philo->is_dead = TRUE;
-				if (thread[i].right_fork_taken == TRUE)
-					pthread_mutex_unlock(thread[i].mutex_right_fork);
-				if (thread[i].left_fork_taken == TRUE)
-				{
-					pthread_mutex_unlock(thread[i].mutex_left_fork);
-				}
 				pthread_mutex_unlock(&philo->mutex_stop);
-				philo_print_state(IS_DEAD, philo->philo_count, ms_since_start(thread[i].time_saved_ms), &thread[i]);
+				philo_print_state(IS_DEAD, thread[i].philo_nb, ms_since_start(thread[i].time_saved_ms), &thread[i]);
 			}
 			else
 			{
@@ -90,6 +84,7 @@ int	threads_init(t_philo *philo)
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)
 		return (ret_value);
+	pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = mutex_destroy(philo);
 	return (ret_value);
 }
