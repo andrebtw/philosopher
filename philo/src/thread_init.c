@@ -81,10 +81,10 @@ int	threads_init(t_philo *philo)
 			i++;
 		}
 	}
+	pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)
 		return (ret_value);
-	pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = mutex_destroy(philo);
 	return (ret_value);
 }

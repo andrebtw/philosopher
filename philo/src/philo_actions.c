@@ -23,12 +23,13 @@ void	odd_order_eating(t_thread *thread)
 	{
 		check_death(thread);
 		pthread_mutex_lock((*thread).mutex_left_fork);
+		thread->left_fork_taken = TRUE;
 		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
-		thread->left_fork_taken = TRUE;
 		check_death(thread);
 		pthread_mutex_lock((*thread).mutex_right_fork);
 		thread->right_fork_taken = TRUE;
+		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
 		check_death(thread);
 	}
@@ -36,12 +37,13 @@ void	odd_order_eating(t_thread *thread)
 	{
 		check_death(thread);
 		pthread_mutex_lock((*thread).mutex_right_fork);
+		thread->right_fork_taken = TRUE;
 		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
-		thread->right_fork_taken = TRUE;
 		check_death(thread);
 		pthread_mutex_lock((*thread).mutex_left_fork);
 		thread->left_fork_taken = TRUE;
+		check_death(thread);
 		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
 		check_death(thread);
 	}
