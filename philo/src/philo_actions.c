@@ -14,11 +14,60 @@
 
 void	thinking(t_thread *thread)
 {
-	philo_print_state(IS_THINKING, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_THINKING, thread->philo_nb,\
+	ms_since_start(thread->time_saved_ms), thread);
 }
 
 void	odd_order_eating(t_thread *thread)
 {
+	if (thread->philo_nb % 2 == 1)
+	{
+        usleep((thread->time_to_eat * 0.9) * 700);
+	}
+    if (thread->philo_nb % 2 == 0)
+	{
+        usleep((thread->time_to_eat * 0.9) * 600);
+	}
+	if (thread->philo_nb % 2 == 0)
+	{
+		check_death(thread);
+		pthread_mutex_lock((*thread).mutex_left_fork);
+		thread->left_fork_taken = TRUE;
+		check_death(thread);
+		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+		check_death(thread);
+		pthread_mutex_lock((*thread).mutex_right_fork);
+		thread->right_fork_taken = TRUE;
+		check_death(thread);
+		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+		check_death(thread);
+	}
+	else
+	{
+		check_death(thread);
+		pthread_mutex_lock((*thread).mutex_right_fork);
+		thread->right_fork_taken = TRUE;
+		check_death(thread);
+		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+		check_death(thread);
+		pthread_mutex_lock((*thread).mutex_left_fork);
+		thread->left_fork_taken = TRUE;
+		check_death(thread);
+		philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+		check_death(thread);
+	}
+}
+
+void	even_order_eating(t_thread *thread)
+{
+	if (thread->eat_count == 0 && thread->philo_nb % 2 == 1)
+	{
+        usleep(200);
+	}
+    if (thread->eat_count == 0 && thread->philo_nb % 2 == 0)
+	{
+        usleep(100);
+	}
 	if (thread->philo_nb % 2 == 0)
 	{
 		check_death(thread);
@@ -51,7 +100,10 @@ void	odd_order_eating(t_thread *thread)
 
 void	eating(t_thread *thread)
 {
-	odd_order_eating(thread);
+	if (thread->is_count_odd)
+		odd_order_eating(thread);
+	else
+		even_order_eating(thread);
 	philo_print_state(IS_EATING, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 	pthread_mutex_lock((*thread).mutex_stop);

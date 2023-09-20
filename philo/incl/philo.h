@@ -109,6 +109,8 @@ typedef struct s_thread
 	time_t			time_saved_ms;
 	time_t			last_time_eat;
 	int				*is_dead;
+	int				is_count_odd;
+	int				philo_count;
 }	t_thread;
 
 /* --- Errors in parsing --- */
@@ -119,7 +121,7 @@ void	*thread_main(void *args);
 int		threads_exit(t_philo *philo);
 int		threads_init(t_philo *philo);
 
-/* --- Mutex ---*/
+/* --- Mutex --- */
 int		mutex_init(t_philo *philo);
 int		mutex_destroy(t_philo *philo);
 

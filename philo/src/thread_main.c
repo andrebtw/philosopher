@@ -36,15 +36,15 @@ void	thread_loop(t_thread *thread)
 {
 	while (1)
 	{
+		thinking(thread);
 		check_death(thread);
 		// if (!(thread->eat_count < thread->eat_count_max))
 			// break ;
 		eating(thread);
 		check_death(thread);
-		// thread->eat_count++;
+		thread->eat_count++;
 		sleeping(thread);
 		check_death(thread);
-		thinking(thread);
 	}
 }
 

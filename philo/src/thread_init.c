@@ -32,6 +32,8 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->is_dead = &philo->is_dead;
 	thread->right_fork_taken = FALSE;
 	thread->left_fork_taken = FALSE;
+	thread->is_count_odd = philo->philo_count % 2;
+	thread->philo_count = philo->philo_count;
 }
 
 int	threads_init(t_philo *philo)
@@ -62,7 +64,7 @@ int	threads_init(t_philo *philo)
 	while (philo->is_dead == FALSE)
 	{
 		size_t i;
-	
+
 		i = 0;
 		while (i < (size_t)philo->philo_count && philo->is_dead == FALSE)
 		{

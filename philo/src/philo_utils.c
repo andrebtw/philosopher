@@ -14,31 +14,30 @@
 
 void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 {
+	// usleep(400);
 	pthread_mutex_lock((*thread).mutex_printf);
 	if (state == IS_DEAD)
 	{
 		printf("%ld %d died\n", ms, nb);
+		return ;
 	}
 	else if (state == IS_EATING)
 	{
 		printf("%ld %d is eating\n", ms, nb);
-		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_SLEEPING)
 	{
 		printf("%ld %d is sleeping\n", ms, nb);
-		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_TAKING_FORK)
 	{
 		printf("%ld %d has taken a fork\n", ms, nb);
-		pthread_mutex_unlock((*thread).mutex_printf);
 	}
 	else if (state == IS_THINKING)
 	{
 		printf("%ld %d is thinking\n", ms, nb);
-		pthread_mutex_unlock((*thread).mutex_printf);
 	}
+	pthread_mutex_unlock((*thread).mutex_printf);
 }
 
 void	ft_usleep(time_t useconds, t_thread *thread)
@@ -55,7 +54,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	while (time_save + useconds / 1000 > time_update)
 	{
-		if (counter == 110)
+		if (counter == 6000)
 		{
 			check_death(thread);
 			counter = 0;
@@ -65,6 +64,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 		usleep(10);
 	}
+	check_death(thread);
 }
 
 time_t	ms_since_start(time_t time_saved_ms)
