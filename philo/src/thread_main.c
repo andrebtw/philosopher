@@ -38,11 +38,19 @@ void	thread_loop(t_thread *thread)
 	{
 		thinking(thread);
 		check_death(thread);
-		// if (!(thread->eat_count < thread->eat_count_max))
-			// break ;
 		eating(thread);
-		check_death(thread);
 		thread->eat_count++;
+		if (!(thread->eat_count_max == NOT_INIT))
+		{
+			if (thread->eat_count == (size_t)thread->eat_count_max)
+			{
+				pthread_mutex_lock((*thread).mutex_stop);
+				thread->eat_finish = TRUE;
+				pthread_mutex_unlock((*thread).mutex_stop);
+				pthread_exit(NULL);
+			}
+		}
+		check_death(thread);
 		sleeping(thread);
 		check_death(thread);
 	}

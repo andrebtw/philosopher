@@ -34,13 +34,17 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->left_fork_taken = FALSE;
 	thread->is_count_odd = philo->philo_count % 2;
 	thread->philo_count = philo->philo_count;
+	thread->eat_finish = FALSE;
 }
 
 int	threads_live_loop(t_philo *philo, t_thread *thread)
 {
+	int	all_philos_eaten;
+
+	all_philos_eaten = FALSE;
 	if (philo->philo_count == 1)
 		return (EXIT_SUCCESS);
-	while (philo->is_dead == FALSE)
+	while (philo->is_dead == FALSE && !all_philos_eaten)
 	{
 		size_t i;
 
@@ -48,7 +52,7 @@ int	threads_live_loop(t_philo *philo, t_thread *thread)
 		while (i < (size_t)philo->philo_count && philo->is_dead == FALSE)
 		{
 			pthread_mutex_lock(&philo->mutex_stop);
-			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
+			if (!thread[i].eat_finish && (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die))
 			{
 				philo->is_dead = TRUE;
 				pthread_mutex_unlock(&philo->mutex_stop);
@@ -56,9 +60,21 @@ int	threads_live_loop(t_philo *philo, t_thread *thread)
 			}
 			else
 			{
+				if (i == 0)
+				{
+					if (thread[i].eat_finish)
+						all_philos_eaten = TRUE;
+				}
+				else
+				{
+					if (all_philos_eaten && thread[i].eat_finish)
+						all_philos_eaten = TRUE;
+					else
+						all_philos_eaten = FALSE;
+				}
 				pthread_mutex_unlock(&philo->mutex_stop);
 			}
-			usleep(500);
+			usleep(1000 * 1);
 			i++;
 		}
 	}

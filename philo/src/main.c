@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	init(t_philo *philo, char **argv)
+int	init(t_philo *philo, char **argv)
 {
 	philo->philo_count = ft_atoi(argv[1]);
 	philo->time_to_die = ft_atoi(argv[2]);
@@ -22,7 +22,13 @@ void	init(t_philo *philo, char **argv)
 		philo->must_eat = ft_atoi(argv[5]);
 	else
 		philo->must_eat = NOT_INIT;
+	if (philo->must_eat == 0)
+	{
+		ft_putstr_fd(ERR_NOT_ENOUGH_TIMES, STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	philo->is_dead = FALSE;
+	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -32,7 +38,8 @@ int	main(int argc, char **argv)
 
 	if (check_for_errors(argc - 1, argv))
 		return (EXIT_FAILURE);
-	init(&philo, argv);
+	if (init(&philo, argv))
+		return (EXIT_FAILURE);
 	ret_value = threads_init(&philo);
 	if (ret_value == ERR_MEM_ALLOC_FAILED)
 		return (ERR_MEM_ALLOC_FAILED);

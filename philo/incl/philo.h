@@ -52,10 +52,13 @@ make sure enough resources are available.\n"
 only send digits.\x1B[37m\n"
 # define ERR_NEG "⛔\x1B[33m: Please make sure to \
 only send positive values.\x1B[37m\n"
+# define ERR_NOT_ENOUGH_TIMES "⛔\x1B[33m: Please make sure to \
+at least make the philos eat once.\x1B[37m\n"
 # define ERR_OF "⛔\x1B[33m: Please make sure to \
 only send values inferior to INT_MAX.\x1B[37m\n"
 # define ERR_NO_PHILO "⛔\x1B[33m: Please make sure to \
 at least send 1 philo.\x1B[37m\n"
+
 
 /* --- Special codes --- */
 # define NOT_INIT -15
@@ -102,7 +105,7 @@ typedef struct s_thread
 	int				time_to_sleep;
 	int				time_to_die;
 	int				eat_count_max;
-	int				eat_count;
+	size_t			eat_count;
 	int				is_even;
 	int				right_fork_taken;
 	int				left_fork_taken;
@@ -111,6 +114,7 @@ typedef struct s_thread
 	int				*is_dead;
 	int				is_count_odd;
 	int				philo_count;
+	int				eat_finish;
 }	t_thread;
 
 /* --- Errors in parsing --- */
