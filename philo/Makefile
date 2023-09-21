@@ -21,7 +21,6 @@ OBJS_DIR = ./objs/
 INC_DIR = incl/
 
 #### --- SOURCE FILES --- ####
-
 SRCS = 	main.c \
 		thread_init.c \
 		thread_exit.c \
@@ -36,35 +35,29 @@ SRCS = 	main.c \
 		utils/ft_isdigit.c \
 		utils/ft_strlen.c \
 		utils/ft_isspace.c \
-		
 
+
+#### --- OBJS --- ####
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
 DEPS = $(OBJS:.o=.d)
 
-#### --- SYSTEM --- ####
-CC = cc
+#### --- FLAGS --- ####
+CFLAGS = -Wall -Wextra -Werror -pthread #-g3 -fsatinize=thread
 
-CFLAGS = -Wall -Wextra -Werror -g3 -pthread
 RM = rm -rf
-
 
 DFLAGS = -MMD -MP
 
 IFLAGS = -I $(INC_DIR)
 
-#### RULES ####
+#### --- RULES --- ####
 all:		$(NAME)
 
 -include	$(DEPS)
 
 $(NAME):	$(OBJS)
 			$(CC) $(OBJS) $(CFLAGS) -o $@
-
-# $(LIBFT):	FORCE
-# 			$(MAKE) all -j -C $(LIB_DIR)
-
-FORCE:
 
 $(OBJS_DIR)%.o:		$(SRC_DIR)%.c
 					mkdir -p $(shell dirname $@)
@@ -78,4 +71,5 @@ fclean:		clean
 
 re:	fclean $(NAME)
 
-.PHONY: all clean fclean re FORCE
+#### --- PHONY --- ####
+.PHONY: all clean fclean re

@@ -72,6 +72,8 @@ void	*thread_main(void *args)
 	thread->last_time_eat = gettime();
 	pthread_mutex_unlock((*thread).mutex_stop);
 	save_time_start_ms(thread);
+	if (thread->philo_count == 1)
+		one_philo_hardcode(thread);
 	thread_loop(thread);
 	pthread_exit(NULL);
 }

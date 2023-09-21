@@ -30,5 +30,4 @@ long long	ft_atol(const char *nptr);
 int	        ft_isspace(int character);
 size_t		ft_strlen(char *str);
 
-
 #endif

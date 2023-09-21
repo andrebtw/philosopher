@@ -36,7 +36,36 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->philo_count = philo->philo_count;
 }
 
-int	threads_init(t_philo *philo)
+int	threads_live_loop(t_philo *philo, t_thread *thread)
+{
+	if (philo->philo_count == 1)
+		return (EXIT_SUCCESS);
+	while (philo->is_dead == FALSE)
+	{
+		size_t i;
+
+		i = 0;
+		while (i < (size_t)philo->philo_count && philo->is_dead == FALSE)
+		{
+			pthread_mutex_lock(&philo->mutex_stop);
+			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
+			{
+				philo->is_dead = TRUE;
+				pthread_mutex_unlock(&philo->mutex_stop);
+				philo_print_state(IS_DEAD, thread[i].philo_nb, ms_since_start(thread[i].time_saved_ms), &thread[i]);
+			}
+			else
+			{
+				pthread_mutex_unlock(&philo->mutex_stop);
+			}
+			usleep(500);
+			i++;
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	create_threads(t_philo *philo)
 {
 	int			i;
 	t_thread	*thread;
@@ -61,32 +90,22 @@ int	threads_init(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_unlock(&philo->mutex_wait_for_threads);
-	while (philo->is_dead == FALSE)
-	{
-		size_t i;
-
-		i = 0;
-		while (i < (size_t)philo->philo_count && philo->is_dead == FALSE)
-		{
-			pthread_mutex_lock(&philo->mutex_stop);
-			if (thread[i].last_time_eat != NOT_INIT && gettime() - thread[i].last_time_eat >= thread[i].time_to_die)
-			{
-				philo->is_dead = TRUE;
-				pthread_mutex_unlock(&philo->mutex_stop);
-				philo_print_state(IS_DEAD, thread[i].philo_nb, ms_since_start(thread[i].time_saved_ms), &thread[i]);
-			}
-			else
-			{
-				pthread_mutex_unlock(&philo->mutex_stop);
-			}
-			usleep(500);
-			i++;
-		}
-	}
-	pthread_mutex_unlock(&philo->mutex_printf);
+	ret_value = threads_live_loop(philo, thread);
+	if (ret_value)
+		return (ret_value);
+	if (philo->philo_count != 1)
+		pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)
 		return (ret_value);
 	ret_value = mutex_destroy(philo);
+	return (ret_value);
+}
+
+int	threads_init(t_philo *philo)
+{
+	int	ret_value;
+
+	ret_value = create_threads(philo);
 	return (ret_value);
 }

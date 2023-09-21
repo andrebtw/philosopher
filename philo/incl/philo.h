@@ -136,5 +136,6 @@ void	ft_usleep(time_t useconds, t_thread *thread);
 time_t	ms_since_start(time_t time_saved_ms);
 time_t	gettime(void);
 void	check_death(t_thread *thread);
+void	one_philo_hardcode(t_thread *thread);
 
 #endif

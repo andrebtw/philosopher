@@ -60,14 +60,14 @@ void	odd_order_eating(t_thread *thread)
 
 void	even_order_eating(t_thread *thread)
 {
-	if (thread->eat_count % 2 == 0 && thread->philo_nb % 2 == 1)
-        usleep((thread->time_to_eat * 0.9) * 700);
-	else if (thread->eat_count % 2 == 0 && thread->philo_nb % 2 == 0)
-        usleep((thread->time_to_eat * 0.9) * 600);
-	else if (thread->eat_count % 2 == 1 && thread->philo_nb % 2 == 1)
-		usleep((thread->time_to_eat * 0.9) * 600);
-	else if (thread->eat_count % 2 == 1 && thread->philo_nb % 2 == 0)
-		usleep((thread->time_to_eat * 0.9) * 700);
+	// if (thread->eat_count % 2 == 0 && thread->philo_nb % 2 == 1)
+    //     usleep((thread->time_to_eat * 0.9) * 700);
+	// else if (thread->eat_count % 2 == 0 && thread->philo_nb % 2 == 0)
+    //     usleep((thread->time_to_eat * 0.9) * 600);
+	// else if (thread->eat_count % 2 == 1 && thread->philo_nb % 2 == 1)
+	// 	usleep((thread->time_to_eat * 0.9) * 600);
+	// else if (thread->eat_count % 2 == 1 && thread->philo_nb % 2 == 0)
+	// 	usleep((thread->time_to_eat * 0.9) * 700);
 	if (thread->philo_nb % 2 == 0)
 	{
 		check_death(thread);
