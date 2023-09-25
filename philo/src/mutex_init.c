@@ -17,7 +17,8 @@ int	mutex_init(t_philo *philo)
 	size_t	i;
 
 	i = 0;
-	philo->mutex_array = (pthread_mutex_t *) malloc (sizeof(pthread_mutex_t) * (philo->philo_count + 1));
+	philo->mutex_array = (pthread_mutex_t *) malloc (\
+	sizeof(pthread_mutex_t) * (philo->philo_count + 1));
 	if (!philo->mutex_array)
 		return (ERR_MEM_ALLOC_FAILED);
 	while (i < (size_t)philo->philo_count)

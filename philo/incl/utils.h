@@ -27,7 +27,7 @@ void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *nptr);
 int			ft_isdigit(int c);
 long long	ft_atol(const char *nptr);
-int	        ft_isspace(int character);
+int			ft_isspace(int character);
 size_t		ft_strlen(char *str);
 
 #endif

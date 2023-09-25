@@ -39,12 +39,10 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 
 int	threads_live_loop(t_philo *philo, t_thread *thread)
 {
-	int	all_philos_eaten;
-
-	all_philos_eaten = FALSE;
+	philo->all_philos_eaten = FALSE;
 	if (philo->philo_count == 1)
 		return (EXIT_SUCCESS);
-	while (philo->is_dead == FALSE && !all_philos_eaten)
+	while (philo->is_dead == FALSE && !philo->all_philos_eaten)
 	{
 		size_t i;
 
@@ -63,14 +61,14 @@ int	threads_live_loop(t_philo *philo, t_thread *thread)
 				if (i == 0)
 				{
 					if (thread[i].eat_finish)
-						all_philos_eaten = TRUE;
+						philo->all_philos_eaten = TRUE;
 				}
 				else
 				{
-					if (all_philos_eaten && thread[i].eat_finish)
-						all_philos_eaten = TRUE;
+					if (philo->all_philos_eaten && thread[i].eat_finish)
+						philo->all_philos_eaten = TRUE;
 					else
-						all_philos_eaten = FALSE;
+						philo->all_philos_eaten = FALSE;
 				}
 				pthread_mutex_unlock(&philo->mutex_stop);
 			}
@@ -109,7 +107,7 @@ int	create_threads(t_philo *philo)
 	ret_value = threads_live_loop(philo, thread);
 	if (ret_value)
 		return (ret_value);
-	if (philo->philo_count != 1)
+	if (philo->philo_count != 1 && !philo->all_philos_eaten)
 		pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)

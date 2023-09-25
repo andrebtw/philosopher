@@ -59,7 +59,6 @@ only send values inferior to INT_MAX.\x1B[37m\n"
 # define ERR_NO_PHILO "⛔\x1B[33m: Please make sure to \
 at least send 1 philo.\x1B[37m\n"
 
-
 /* --- Special codes --- */
 # define NOT_INIT -15
 # define ERR_MEM_ALLOC_FAILED 12
@@ -73,7 +72,7 @@ at least send 1 philo.\x1B[37m\n"
 # define IS_DEAD -5000 
 # define IS_TAKING_FORK -6000
 
-typedef struct timeval t_timeval;
+typedef struct timeval	t_timeval;
 
 /* --- Main struct --- */
 typedef struct s_philo
@@ -91,6 +90,7 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_sleep;
 	int				is_dead;
+	int				all_philos_eaten;
 }	t_philo ;
 
 typedef struct s_thread

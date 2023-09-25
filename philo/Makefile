@@ -25,6 +25,7 @@ SRCS = 	main.c \
 		thread_init.c \
 		thread_exit.c \
 		philo_actions.c \
+		philo_actions_eating.c \
 		mutex_init.c \
 		errors.c \
 		thread_main.c \
@@ -43,7 +44,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
 #### --- FLAGS --- ####
-CFLAGS = -Wall -Wextra -Werror -pthread #-g3 -fsatinize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
 
 RM = rm -rf
 
