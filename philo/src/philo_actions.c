@@ -18,9 +18,9 @@ void	thinking(t_thread *thread)
 	ms_since_start(thread->time_saved_ms), thread);
 }
 
-
 void	sleeping(t_thread *thread)
 {
-	philo_print_state(IS_SLEEPING, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_SLEEPING, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	ft_usleep(1000 * thread->time_to_sleep, thread);
 }

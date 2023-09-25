@@ -23,6 +23,7 @@ INC_DIR = incl/
 #### --- SOURCE FILES --- ####
 SRCS = 	main.c \
 		thread_init.c \
+		thread_init_utils.c \
 		thread_exit.c \
 		philo_actions.c \
 		philo_actions_eating.c \

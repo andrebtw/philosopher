@@ -18,12 +18,14 @@ void	taking_fork_even(t_thread *thread)
 	pthread_mutex_lock((*thread).mutex_left_fork);
 	thread->left_fork_taken = TRUE;
 	check_death(thread);
-	philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_TAKING_FORK, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 	pthread_mutex_lock((*thread).mutex_right_fork);
 	thread->right_fork_taken = TRUE;
 	check_death(thread);
-	philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_TAKING_FORK, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 }
 
@@ -33,12 +35,14 @@ void	taking_fork_odd(t_thread *thread)
 	pthread_mutex_lock((*thread).mutex_right_fork);
 	thread->right_fork_taken = TRUE;
 	check_death(thread);
-	philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_TAKING_FORK, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 	pthread_mutex_lock((*thread).mutex_left_fork);
 	thread->left_fork_taken = TRUE;
 	check_death(thread);
-	philo_print_state(IS_TAKING_FORK, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_TAKING_FORK, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 }
 
@@ -75,7 +79,8 @@ void	eating(t_thread *thread)
 		odd_order_eating(thread);
 	else
 		even_order_eating(thread);
-	philo_print_state(IS_EATING, thread->philo_nb, ms_since_start(thread->time_saved_ms), thread);
+	philo_print_state(IS_EATING, thread->philo_nb, \
+	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);
 	pthread_mutex_lock((*thread).mutex_stop);
 	thread->last_time_eat = gettime();

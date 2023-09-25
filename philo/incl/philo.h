@@ -72,6 +72,7 @@ at least send 1 philo.\x1B[37m\n"
 # define IS_DEAD -5000 
 # define IS_TAKING_FORK -6000
 
+/* --- Time struct --- */
 typedef struct timeval	t_timeval;
 
 /* --- Main struct --- */
@@ -91,7 +92,7 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				is_dead;
 	int				all_philos_eaten;
-}	t_philo ;
+}	t_philo;
 
 typedef struct s_thread
 {
@@ -120,10 +121,12 @@ typedef struct s_thread
 /* --- Errors in parsing --- */
 int		check_for_errors(int argc, char **argv);
 
-/* --- Philo --- */
+/* --- Threads creation --- */
 void	*thread_main(void *args);
 int		threads_exit(t_philo *philo);
 int		threads_init(t_philo *philo);
+void	check_philos(t_philo *philo, t_thread *thread, size_t i);
+void	check_if_philos_eaten(t_philo *philo, t_thread *thread, size_t i);
 
 /* --- Mutex --- */
 int		mutex_init(t_philo *philo);
