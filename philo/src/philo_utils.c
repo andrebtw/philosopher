@@ -53,7 +53,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 	time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
 	while (time_save + useconds / 1000 > time_update)
 	{
-		if (counter == 4000)
+		if (counter == 1000)
 		{
 			check_death(thread);
 			counter = 0;
@@ -61,7 +61,7 @@ void	ft_usleep(time_t useconds, t_thread *thread)
 		counter++;
 		gettimeofday(&real_time, NULL);
 		time_update = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
-		usleep(10);
+		usleep(100);
 	}
 	check_death(thread);
 }

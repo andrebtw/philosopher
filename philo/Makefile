@@ -6,7 +6,7 @@
 #    By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 05:39:33 by anrodri2          #+#    #+#              #
-#    Updated: 2023/09/06 18:20:39 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/10/05 17:02:15 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
 #### --- FLAGS --- ####
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread 
 
 RM = rm -rf
 

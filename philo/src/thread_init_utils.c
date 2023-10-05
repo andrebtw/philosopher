@@ -45,5 +45,5 @@ void	check_philos(t_philo *philo, t_thread *thread, size_t i)
 	{
 		check_if_philos_eaten(philo, thread, i);
 	}
-	usleep(1000 * 1);
+	usleep(50);
 }
