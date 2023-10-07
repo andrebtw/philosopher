@@ -26,7 +26,6 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	if (i == 0)
 		i = philo->philo_count;
 	thread->mutex_left_fork = &philo->mutex_array[i - 1];
-	thread->mutex_printf = &philo->mutex_printf;
 	thread->mutex_wait_for_threads = &philo->mutex_wait_for_threads;
 	thread->mutex_stop = &philo->mutex_stop;
 	thread->is_dead = &philo->is_dead;
@@ -95,8 +94,6 @@ int	create_threads(t_philo *philo)
 	ret_value = threads_live_loop(philo, thread);
 	if (ret_value)
 		return (ret_value);
-	if (philo->philo_count != 1 && !philo->all_philos_eaten)
-		pthread_mutex_unlock(&philo->mutex_printf);
 	ret_value = threads_exit(philo);
 	if (ret_value != 0)
 		return (ret_value);

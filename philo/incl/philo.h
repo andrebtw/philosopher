@@ -80,7 +80,6 @@ typedef struct s_philo
 {
 	pthread_t		*threads_array;
 	pthread_mutex_t	*mutex_array;
-	pthread_mutex_t	mutex_printf;
 	pthread_mutex_t	mutex_wait_for_threads;
 	pthread_mutex_t	mutex_stop;
 	int				fork_count;
@@ -98,7 +97,6 @@ typedef struct s_thread
 {
 	pthread_mutex_t	*mutex_left_fork;
 	pthread_mutex_t	*mutex_right_fork;
-	pthread_mutex_t	*mutex_printf;
 	pthread_mutex_t	*mutex_wait_for_threads;
 	pthread_mutex_t	*mutex_stop;
 	int				philo_nb;

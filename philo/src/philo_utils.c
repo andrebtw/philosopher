@@ -14,20 +14,12 @@
 
 void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 {
-	pthread_mutex_lock((*thread).mutex_printf);
-	if (state == IS_DEAD)
-	{
-		printf("%ld %d died\n", ms, nb);
-		return ;
-	}
 	pthread_mutex_lock((*thread).mutex_stop);
 	if (*thread->is_dead)
 	{
 		pthread_mutex_unlock((*thread).mutex_stop);
 		pthread_exit(NULL);
-		return ;
 	}
-	pthread_mutex_unlock((*thread).mutex_stop);
 	if (state == IS_EATING)
 		printf("%ld %d is eating\n", ms, nb);
 	if (state == IS_SLEEPING)
@@ -36,7 +28,7 @@ void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 		printf("%ld %d has taken a fork\n", ms, nb);
 	if (state == IS_THINKING)
 		printf("%ld %d is thinking\n", ms, nb);
-	pthread_mutex_unlock((*thread).mutex_printf);
+	pthread_mutex_unlock((*thread).mutex_stop);
 }
 
 void	ft_usleep(time_t useconds, t_thread *thread)

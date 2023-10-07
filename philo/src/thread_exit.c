@@ -38,6 +38,7 @@ int	mutex_destroy(t_philo *philo)
 		i++;
 	}
 	free(philo->mutex_array);
-	pthread_mutex_destroy(&philo->mutex_printf);
+	pthread_mutex_destroy(&philo->mutex_wait_for_threads);
+	pthread_mutex_destroy(&philo->mutex_stop);
 	return (EXIT_SUCCESS);
 }

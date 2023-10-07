@@ -45,7 +45,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
 #### --- FLAGS --- ####
-CFLAGS = -Wall -Wextra -Werror -pthread 
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g
 
 RM = rm -rf
 
