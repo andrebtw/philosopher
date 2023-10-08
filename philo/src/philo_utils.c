@@ -14,7 +14,6 @@
 
 void	philo_print_state(int state, int nb, time_t ms, t_thread *thread)
 {
-	(void)ms;
 	pthread_mutex_lock((*thread).mutex_stop);
 	if (*thread->is_dead || *thread->all_philos_eaten)
 	{

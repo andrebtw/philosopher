@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 00:00:21 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/10/08 19:50:54 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:42:30 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ void	check_if_philos_eaten(t_philo *philo, t_thread *thread, size_t i)
 
 void	check_philos(t_philo *philo, t_thread *thread, size_t i)
 {
+	time_t	ms;
+
 	pthread_mutex_lock(&philo->mutex_stop);
 	if (!thread[i].eat_finish && (thread[i].last_time_eat != \
 	NOT_INIT && gettime() - thread[i].last_time_eat \
 	>= thread[i].time_to_die))
 	{
+		ms = ms_since_start(thread[i].time_saved_ms);
+		if (philo->printf_time != NOT_INIT && *thread[i].printf_time > ms)
+			ms = *thread[i].printf_time;
 		philo->is_dead = TRUE;
-		printf("%ld %d died\n", ms_since_start(\
-		thread[i].time_saved_ms), thread[i].philo_nb);
+		printf("%ld %d died\n", ms, thread[i].philo_nb);
 		pthread_mutex_unlock(&philo->mutex_stop);
 	}
 	else
