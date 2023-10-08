@@ -36,6 +36,7 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->eat_finish = FALSE;
 	philo->printf_time = NOT_INIT;
 	thread->printf_time = &philo->printf_time;
+	thread->all_philos_eaten = &philo->all_philos_eaten;
 }
 
 int	threads_live_loop(t_philo *philo, t_thread *thread)
