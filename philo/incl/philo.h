@@ -91,6 +91,7 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				is_dead;
 	int				all_philos_eaten;
+	time_t			printf_time;
 }	t_philo;
 
 typedef struct s_thread
@@ -114,6 +115,7 @@ typedef struct s_thread
 	int				is_count_odd;
 	int				philo_count;
 	int				eat_finish;
+	time_t			*printf_time;
 }	t_thread;
 
 /* --- Errors in parsing --- */

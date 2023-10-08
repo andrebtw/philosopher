@@ -34,6 +34,8 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	thread->is_count_odd = philo->philo_count % 2;
 	thread->philo_count = philo->philo_count;
 	thread->eat_finish = FALSE;
+	philo->printf_time = NOT_INIT;
+	thread->printf_time = &philo->printf_time;
 }
 
 int	threads_live_loop(t_philo *philo, t_thread *thread)

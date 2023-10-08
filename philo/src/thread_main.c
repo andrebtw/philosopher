@@ -27,9 +27,7 @@ void	save_time_start_ms(t_thread *thread)
 	struct timeval	real_time;
 
 	gettimeofday(&real_time, NULL);
-	pthread_mutex_lock((*thread).mutex_stop);
 	thread->time_saved_ms = real_time.tv_sec * 1000 + real_time.tv_usec / 1000;
-	pthread_mutex_unlock((*thread).mutex_stop);
 }
 
 void	thread_loop(t_thread *thread)
@@ -78,8 +76,8 @@ void	*thread_main(void *args)
 		thread->eat_count_max = INT_MAX;
 	pthread_mutex_lock((*thread).mutex_stop);
 	thread->last_time_eat = gettime();
-	pthread_mutex_unlock((*thread).mutex_stop);
 	save_time_start_ms(thread);
+	pthread_mutex_unlock((*thread).mutex_stop);
 	if (thread->philo_count == 1)
 		one_philo_hardcode(thread);
 	thread_loop(thread);
