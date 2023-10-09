@@ -98,6 +98,6 @@ void	one_philo_hardcode(t_thread *thread)
 	printf("%d %d is thinking\n", 0, 1);
 	printf("%d %d has taken a fork\n", 0, 1);
 	usleep(1000 * thread->time_to_die);
-	printf("%d %d died\n", thread->time_to_die, 1);
+	printf("%ld %d died\n", thread->time_to_die, 1);
 	pthread_exit(NULL);
 }

@@ -86,9 +86,9 @@ typedef struct s_philo
 	int				philo_count;
 	int				must_eat;
 	int				eat_count_max;
-	int				time_to_eat;
-	int				time_to_die;
-	int				time_to_sleep;
+	time_t			time_to_eat;
+	time_t			time_to_die;
+	time_t			time_to_sleep;
 	int				is_dead;
 	int				all_philos_eaten;
 	time_t			printf_time;
@@ -102,9 +102,9 @@ typedef struct s_thread
 	pthread_mutex_t	*mutex_wait_for_threads;
 	pthread_mutex_t	*mutex_stop;
 	int				philo_nb;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	time_t			time_to_die;
 	int				eat_count_max;
 	size_t			eat_count;
 	int				is_even;
