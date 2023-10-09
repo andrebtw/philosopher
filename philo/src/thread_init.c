@@ -37,6 +37,8 @@ void	value_init(t_philo *philo, t_thread *thread, size_t i)
 	philo->printf_time = NOT_INIT;
 	thread->printf_time = &philo->printf_time;
 	thread->all_philos_eaten = &philo->all_philos_eaten;
+	philo->thread_failed = FALSE;
+	thread->thread_failed = &philo->thread_failed;
 }
 
 int	threads_live_loop(t_philo *philo, t_thread *thread)
@@ -54,6 +56,7 @@ int	threads_live_loop(t_philo *philo, t_thread *thread)
 			check_philos(philo, thread, i);
 			i++;
 		}
+		check_if_philos_eaten(philo, thread);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -65,15 +68,18 @@ int	create_threads_loop(t_philo *philo, t_thread *thread)
 	i = 0;
 	philo->threads_array = malloc(sizeof(pthread_t) * philo->philo_count);
 	if (!philo->threads_array)
+	{
 		return (free(philo->mutex_array), \
 		free(thread), ERR_MEM_ALLOC_FAILED);
+	}
 	pthread_mutex_lock(&philo->mutex_wait_for_threads);
 	while (i < (size_t)philo->philo_count)
 	{
 		value_init(philo, &thread[i], i);
 		if (pthread_create(&philo->threads_array[i], \
 		NULL, &thread_main, &thread[i]) != 0)
-			return (free(philo->threads_array), ERR_THREAD_FAILED);
+			return (\
+			if_thread_dies(philo, i, thread), ERR_THREAD_FAILED);
 		i++;
 	}
 	pthread_mutex_unlock(&philo->mutex_wait_for_threads);
@@ -101,6 +107,7 @@ int	create_threads(t_philo *philo)
 	if (ret_value != 0)
 		return (ret_value);
 	ret_value = mutex_destroy(philo);
+	free(thread);
 	return (ret_value);
 }
 

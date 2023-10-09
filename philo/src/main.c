@@ -41,17 +41,16 @@ int	main(int argc, char **argv)
 	if (init(&philo, argv))
 		return (EXIT_FAILURE);
 	ret_value = threads_init(&philo);
-	if (ret_value == ERR_MEM_ALLOC_FAILED)
-		return (ERR_MEM_ALLOC_FAILED);
+	if (ret_value)
+		return (ret_value);
 	else if (ret_value == ERR_THREAD_FAILED)
-	{
-		ft_putstr_fd(ERR_THREAD_MSG, STDERR_FILENO);
-		return (ERR_THREAD_FAILED);
-	}
+		return (ft_putstr_fd(\
+		ERR_THREAD_MSG, STDERR_FILENO), ERR_THREAD_FAILED);
 	else if (ret_value == ERR_MUTEX_FAILED)
-	{
-		ft_putstr_fd(ERR_MUTEX_MSG, STDERR_FILENO);
-		return (ERR_THREAD_FAILED);
-	}
+		return (ft_putstr_fd(\
+		ERR_MUTEX_MSG, STDERR_FILENO), ERR_THREAD_FAILED);
+	else if (ret_value == ERR_MEM_ALLOC_FAILED)
+		return (ft_putstr_fd(\
+		ERR_MALLOC_MSG, STDERR_FILENO), ERR_MEM_ALLOC_FAILED);
 	return (EXIT_SUCCESS);
 }

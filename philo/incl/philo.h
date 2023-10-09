@@ -41,12 +41,12 @@
 # define KWHITE "\x1B[37m"
 
 /* --- Error messages --- */
-# define ERR_MALLOC_MSG "Memory allocation has failed. \x1B[0m\n\x1B[33mPlease\
-make sure enough memory is dedicated to the process.\n"
+# define ERR_MALLOC_MSG "Memory allocation has failed. \x1B[0m\n\x1B[33m Please\
+ make sure enough memory is dedicated to the process.\n\x1B[0m"
 # define ERR_THREAD_MSG "Thread init has failed. \x1B[0m\n\x1B[33mPlease\
-make sure enough resources are available.\n"
+ make sure enough resources are available.\n\x1B[0m"
 # define ERR_MUTEX_MSG "Mutex init has failed. \x1B[0m\n\x1B[33mPlease\
-make sure enough resources are available.\n"
+ make sure enough resources are available.\n\x1B[0m"
 # define ERR_WRONG_ARGS_MSG "⛔\x1B[33m: Wrong number of arguments.\x1B[37m\n"
 # define ERR_NOT_DIGIT "⛔\x1B[33m: Please make sure to \
 only send digits.\x1B[37m\n"
@@ -69,7 +69,7 @@ at least send 1 philo.\x1B[37m\n"
 # define IS_EATING -2000
 # define IS_SLEEPING -3000
 # define IS_THINKING -4000
-# define IS_DEAD -5000 
+# define IS_DEAD -5000
 # define IS_TAKING_FORK -6000
 
 /* --- Time struct --- */
@@ -92,6 +92,7 @@ typedef struct s_philo
 	int				is_dead;
 	int				all_philos_eaten;
 	time_t			printf_time;
+	int				thread_failed;
 }	t_philo;
 
 typedef struct s_thread
@@ -117,6 +118,7 @@ typedef struct s_thread
 	int				eat_finish;
 	int				*all_philos_eaten;
 	time_t			*printf_time;
+	int				*thread_failed;
 }	t_thread;
 
 /* --- Errors in parsing --- */
@@ -127,7 +129,10 @@ void	*thread_main(void *args);
 int		threads_exit(t_philo *philo);
 int		threads_init(t_philo *philo);
 void	check_philos(t_philo *philo, t_thread *thread, size_t i);
-void	check_if_philos_eaten(t_philo *philo, t_thread *thread, size_t i);
+void	check_if_philos_eaten(t_philo *philo, t_thread *thread);
+
+/* --- Threads main loop --- */
+void	if_thread_dies(t_philo *philo, size_t i, t_thread *thread);
 
 /* --- Mutex --- */
 int		mutex_init(t_philo *philo);
