@@ -6,7 +6,7 @@
 /*   By: anrodri2 < anrodri2@student.42lyon.fr >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 23:42:53 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/10/08 19:43:00 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:35:20 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,19 @@ void	taking_fork_odd(t_thread *thread)
 	check_death(thread);
 }
 
-void	odd_order_eating(t_thread *thread)
+void	odd_order_eating_fork(t_thread *thread)
 {
 	if (thread->philo_nb % 2 == 0)
 	{
-		usleep((thread->time_to_eat * 0.9) * 600);
 		taking_fork_even(thread);
 	}
 	else
 	{
-		usleep((thread->time_to_eat * 0.9) * 700);
 		taking_fork_odd(thread);
 	}
 }
 
-void	even_order_eating(t_thread *thread)
+void	even_order_eating_fork(t_thread *thread)
 {
 	if (thread->philo_nb % 2 == 0)
 	{
@@ -68,7 +66,6 @@ void	even_order_eating(t_thread *thread)
 	}
 	else
 	{
-		usleep((thread->time_to_eat * 0.9) * 10);
 		taking_fork_odd(thread);
 	}
 }
@@ -76,9 +73,9 @@ void	even_order_eating(t_thread *thread)
 void	eating(t_thread *thread)
 {
 	if (thread->is_count_odd)
-		odd_order_eating(thread);
+		odd_order_eating_fork(thread);
 	else
-		even_order_eating(thread);
+		even_order_eating_fork(thread);
 	philo_print_state(IS_EATING, thread->philo_nb, \
 	ms_since_start(thread->time_saved_ms), thread);
 	check_death(thread);

@@ -60,13 +60,18 @@ void	thread_loop(t_thread *thread)
 	}
 }
 
-void	start_philo(t_thread *thread)
+void	odd_order_eating(t_thread *thread)
 {
-	if (thread->is_even)
-	{
-		thinking(thread);
-		usleep(1000 * 5);
-	}
+	if (thread->philo_nb % 2 == 0)
+		usleep((thread->time_to_eat * 0.9) * 600);
+	else
+		usleep((thread->time_to_eat * 0.9) * 700);
+}
+
+void	even_order_eating(t_thread *thread)
+{
+	if (thread->philo_nb % 2 != 0)
+		usleep((thread->time_to_eat * 0.9) * 10);
 }
 
 void	*thread_main(void *args)
@@ -86,6 +91,10 @@ void	*thread_main(void *args)
 	save_time_start_ms(thread);
 	if (thread->philo_count == 1)
 		one_philo_hardcode(thread);
+	if (thread->is_count_odd)
+		odd_order_eating(thread);
+	else
+		even_order_eating(thread);
 	thread_loop(thread);
 	pthread_exit(NULL);
 }
